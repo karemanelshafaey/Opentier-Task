@@ -77,10 +77,14 @@ Fix: Set the listener to non-blocking mode and checked the is_running flag in ea
 
 (2) Explained how architectural flaws were addressed to improve server performance and scalability:
 
-1.Transitioned from single-threaded to multithreaded architecture using a thread pool for concurrent client handling.
+1. Transitioned from single-threaded to multithreaded architecture using a thread pool for concurrent client handling.
+
 2. Introduced synchronization primitives (Arc, AtomicBool, Mutex) to ensure thread safety and prevent data races.
+
 3. Set the listener to non-blocking mode to handle incoming connections without blocking the main loop.
+
 4. Implemented graceful shutdown mechanism by setting the is_running flag to false and breaking out of the main loop.
+
 5. Improved resource utilization and scalability by distributing the workload across multiple worker threads.
 
 // These architectural enhancements contribute to a more efficient, scalable, and robust server implementation capable of handling concurrent clients effectively.
