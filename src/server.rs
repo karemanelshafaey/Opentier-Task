@@ -14,7 +14,7 @@ use std::{
     time::Duration,
 };
 
-const MAX_MESSAGE_SIZE: usize = 1024 * 1024; // 1MB max message size
+const MAX_MESSAGE_SIZE: usize = 1024 * 1024; 
 const READ_TIMEOUT: Duration = Duration::from_secs(30);
 const THREAD_POOL_SIZE: usize = 4;
 

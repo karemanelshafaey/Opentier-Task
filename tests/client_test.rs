@@ -1,3 +1,4 @@
+use serial_test::serial;
 use task::{
     message::{client_message, server_message, AddRequest, EchoMessage},
     server::Server,
@@ -22,6 +23,7 @@ fn create_server() -> Arc<Server> {
 }
 
 #[test]
+#[serial]
 fn test_client_connection() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -37,6 +39,7 @@ fn test_client_connection() {
 }
 
 #[test]
+#[serial]
 fn test_client_echo_message() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -69,6 +72,7 @@ fn test_client_echo_message() {
 }
 
 #[test]
+#[serial]
 fn test_client_add_request() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -100,6 +104,7 @@ fn test_client_add_request() {
 }
 
 #[test]
+#[serial]
 fn test_server_scalability() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -157,6 +162,7 @@ fn test_server_scalability() {
 }
 
 #[test]
+#[serial]
 fn test_concurrent_request_handling() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -230,12 +236,14 @@ fn test_concurrent_request_handling() {
 }
 
 #[test]
+#[serial]
 fn test_connection_timeout() {
     let mut client = Client::new("192.0.2.1", 8080, 100);
     assert!(client.connect().is_err(), "Should timeout quickly");
 }
 
 #[test]
+#[serial]
 fn test_message_order_preservation() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -272,6 +280,7 @@ fn test_message_order_preservation() {
 }
 
 #[test]
+#[serial]
 fn test_large_message_handling() {
     let server = create_server();
     let handle = setup_server_thread(server.clone());
@@ -280,7 +289,7 @@ fn test_large_message_handling() {
     assert!(client.connect().is_ok());
     thread::sleep(Duration::from_millis(50));
 
-    let large_content = "x".repeat(10_000); // Reduced size for testing
+    let large_content = "x".repeat(10_000);
     let message = client_message::Message::EchoMessage(EchoMessage {
         content: large_content.clone(),
     });
